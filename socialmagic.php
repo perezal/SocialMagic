@@ -37,6 +37,7 @@ class SocialMagicPlugin {
 				$this->define_constants();
 				$this->setup_shortcode();
 				$this->setup_actions();
+				$this->enqueue_scripts();
 
     }
 
@@ -57,10 +58,21 @@ class SocialMagicPlugin {
     private function setup_shortcode() {
 
         add_shortcode( 'socialmagic', array( $this, 'register_shortcode' ) );
+
+    }
+
+		private function enqueue_scripts() {
+
+			function socialmagic_enqueue() {
+
 				wp_enqueue_style( 'socialmagic', SOCIALMAGIC_PATH . 'css/socialmagic.css', array(), SOCIALMAGIC_VERSION, 'all' );
 				wp_enqueue_style( 'fontawesome', '//netdna.bootstrapcdn.com/font-awesome/latest/css/font-awesome.css', array(), SOCIALMAGIC_VERSION, 'all' );
 
-    }
+			}
+
+			add_action( 'wp_enqueue_scripts', 'socialmagic_enqueue' );
+
+		}
 
 		private function setup_actions() {
 
@@ -74,7 +86,7 @@ class SocialMagicPlugin {
 
 			$capability = apply_filters( 'socialmagic_capability', 'edit_others_posts' );
 
-			$page = add_menu_page( $title, $title, $capability, 'metaslider', array(
+			$page = add_menu_page( $title, $title, $capability, 'socialmagic', array(
 				$this, 'render_admin_page'
 			), SOCIALMAGIC_PATH . 'images/mcgeeney.png', 9501 );
 
