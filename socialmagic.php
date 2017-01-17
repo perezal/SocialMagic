@@ -8,34 +8,33 @@
  * Version:     1.0
  * Author:      Alex Perez Development
  * Author URI:  https://www.alexperez.ninja
- * License:     GPL-2.0+
  * Copyright:   2016 Alex Perez Development
  */
 
 class SocialMagicPlugin {
 
-		/*****
-		* @var string
-		*****/
+		/*********
+		* version
+		*********/
 
 		public $version = '1.0.0';
 
-	 /**
+	 /*********
      * Init
-     */
+   *********/
     public static function init() {
 
         $socialmagic = new self();
 
     }
 
-     /**
+     /*************
      * Constructor
-     */
+     *************/
     public function __construct() {
 
 				$this->define_constants();
-				$this->setup_shortcode();
+				$this->register_shortcode();
 				$this->setup_actions();
 				$this->enqueue_scripts();
 
@@ -52,12 +51,12 @@ class SocialMagicPlugin {
 
 		}
 
-    /**
-     * Register the [socialmagic] shortcode.
-     */
-    private function setup_shortcode() {
+    /***************************************
+     * register the [socialmagic] shortcode
+     **************************************/
+    private function register_shortcode() {
 
-        add_shortcode( 'socialmagic', array( $this, 'register_shortcode' ) );
+        add_shortcode( 'socialmagic', array( $this, 'setup_shortcode' ) );
 
     }
 
@@ -76,7 +75,7 @@ class SocialMagicPlugin {
 
 		private function setup_actions() {
 
-			add_action( 'admin_menu', array( $this, 'register_admin_menu' ), 9000 );
+			add_action( 'admin_menu', array( $this, 'register_admin_menu' ), 9001 );
 
 		}
 
@@ -88,14 +87,14 @@ class SocialMagicPlugin {
 
 			$page = add_menu_page( $title, $title, $capability, 'socialmagic', array(
 				$this, 'render_admin_page'
-			), SOCIALMAGIC_PATH . 'images/mcgeeney.png', 9501 );
+			), SOCIALMAGIC_PATH . 'images/socialmagic.png', 9501 );
 
 		}
 
 		public function render_admin_page() {
 			?>
 			<div class="wrap socialmagic">
-				<form action="poop">
+				<form action="form-action">
 					<input>
 					<input>
 				</form>
@@ -105,7 +104,11 @@ class SocialMagicPlugin {
 			<?php
 		}
 
-     public function register_shortcode( $atts ) {
+		/***************
+		* shortcode construction
+		***************/
+
+     public function setup_shortcode( $atts ) {
 
         extract( shortcode_atts( array(
             'id' => false,
@@ -129,10 +132,7 @@ class SocialMagicPlugin {
         // we have an ID to work with
         $social = get_post( $id );
 
-        // check the social is published and the ID is correct
-//         if ( ! $social || $social->post_status != 'publish' || $social->post_type != 'socialmagic' ) {
-//             return "<!-- socialmagic {$atts['id']} not found -->";
-//         }
+
 
 
         return '<ul class="socialMagicMenu">
@@ -144,17 +144,3 @@ class SocialMagicPlugin {
 }
 
 add_action('plugins_loaded', array('SocialMagicPlugin', 'init'), 10);
-
-class SocialMagic {
-
-    public $id = 0; // slider ID
-    public $identifier = 0; // unique identifier
-    public $slides = array(); //slides belonging to this slider
-    public $settings = array(); // slider settings
-
-    public function render_social_icons() {
-    	$html[] = '<!-- socialmagic -->';
-
-    }
-
-}
