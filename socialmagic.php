@@ -136,9 +136,9 @@ class SocialMagicPlugin {
 
 
         return '<ul class="socialMagicMenu">
-								<li id="fuckinFacebook"><a href="www.facebook.com"><img src="' . SOCIALMAGIC_PATH . 'images/facebook.png' . '"></a></li>
-								<li id="fuckinTwitter"><a href="www.twitter.com"><img src="' . SOCIALMAGIC_PATH . 'images/email.png' . '"></a></li>
-								<li id="fuckinSomeothershit"><a href="www.linkedin.com"><img src="' . SOCIALMAGIC_PATH . 'images/instagram.png' . '"></a></li>
+								<li><a href="www.facebook.com"><img src="' . SOCIALMAGIC_PATH . 'images/facebook.png' . '"></a></li>
+								<li><a href="mailto:someone@somefakedomain.com"><img src="' . SOCIALMAGIC_PATH . 'images/email.png' . '"></a></li>
+								<li><a href="www.instagram.com"><img src="' . SOCIALMAGIC_PATH . 'images/instagram.png' . '"></a></li>
 								</ul>';
     }
 }
